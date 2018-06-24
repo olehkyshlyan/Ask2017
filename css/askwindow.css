@@ -1,0 +1,515 @@
+
+#askwwrap
+{
+display: none;
+margin-left: 5px;
+margin-right: 5px;
+margin-bottom: 10px;
+}
+
+#askWindow
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 720px;
+padding-top: 30px;
+padding-bottom: 10px;
+margin-left: auto;
+margin-right: auto;
+border: 1px solid rgb(232,232,232); /* color gray91 */
+//background-color: rgb(250,235,215); /* color AntiqueWhite */
+background-color: rgb(255,243,204); /* color Cornsilk | Saturation 20%  */
+}
+
+#askWindow form
+{
+margin: 0px;
+}
+
+.asterisk
+{
+color: rgb(255,0,0); /* color Red */
+}
+
+#AWCloseButton
+{
+position: absolute;
+right: 2px;
+top: 1px;
+cursor: pointer;
+}
+
+#awQFTimer
+{
+position: relative;
+margin-left: 100px;
+width: 565px;
+text-align: center;
+font-size: 11px;
+color: rgb(112,128,144); /* color SlateGrey */
+//background-color: rgb(255,0,255); /* color Magenta */
+}
+
+#AWQuestionDiv
+{
+position: relative;
+margin-bottom: 5px;
+//background-color: rgb(124,252,0); /* color LawnGreen */
+}
+
+#AWQuestionWord
+{
+position: absolute;
+width: 100px;
+//background-color: rgb(255,0,255); /* color Magenta */
+text-align: right;
+font-weight: bold;
+}
+
+#AWQuestionWord2
+{
+margin-right: 5px;
+}
+
+#AWQuestionField
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//background-color: rgb(135,206,250); /* color LightSkyBlue */
+margin: 0px 0px 0px 100px;
+width: 590px;
+}
+
+#AWQuestTxtAr
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+resize: none;
+//width: 570px;
+width: 565px;
+margin: 0px;
+padding: 0px;
+height: 37px;
+}
+
+#AWQuestMax
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//background-color: rgb(124,252,0); /* color LawnGreen */
+font-size: 11px;
+left: 100px;
+width: 565px;
+color: rgb(112,128,144); /* color SlateGrey */
+padding-left: 2px;
+text-align: right;
+}
+
+#qtxtsp
+{
+position: relative;
+display: inline-block;
+height: 12px;
+margin-top: 1px;
+margin-left: 4px;
+margin-right: 5px;
+vertical-align: top;
+border-left: 1px solid rgb(112,128,144); /* color SlateGrey */
+}
+
+#AWExplanationDiv
+{
+position: relative;
+margin-bottom: 5px;
+//background-color: rgb(124,252,0); /* color LawnGreen */
+}
+
+#AWExplanationWord
+{
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100px;
+//background-color: rgb(255,0,255); /* color Magenta */
+text-align: right;
+font-weight: bold;
+}
+
+#AWExpW2
+{
+margin-right: 5px;
+}
+
+#AWQDTxtCopy
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 590px;
+margin-left: 100px;
+background-color: rgb(202,255,112); /* color DarkOliveGreen1 */
+}
+
+#AWExplanationField
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//background-color: rgb(135,206,250); /* color LightSkyBlue */
+margin: 0px 0px 0px 100px;
+width: 590px;
+}
+
+#AWDetTxtAr
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 565px;
+margin: 0px;
+padding: 0px;
+min-height: 50px;
+max-height: 325px;
+resize: vertical;
+overflow: hidden;
+}
+
+#AWExplMax
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+left: 100px;
+margin: 0px;
+width: 565px;
+text-align: right;
+//border: 1px solid black;
+font-size: 11px;
+color: rgb(112,128,144); /* color SlateGrey */
+//background-color: rgb(124,252,0); /* color LawnGreen */
+}
+
+#AWExpInsImage
+{
+position: absolute;
+left: 0px;
+top: 0px;
+font-size: 12px;
+font-weight: bold;
+color: rgb(0,0,205); /* color MediumBlue */
+cursor: pointer;
+}
+
+#AWExpInsImage:hover
+{
+color: rgb(0,0,205); /* color MediumBlue */
+cursor: pointer;
+}
+
+#qdtxtsp
+{
+position: relative;
+display: inline-block;
+height: 12px;
+margin-top: 1px;
+margin-left: 4px;
+margin-right: 5px;
+vertical-align: top;
+border-left: 1px solid rgb(112,128,144); /* color SlateGrey */
+}
+
+#AWAddImg
+{
+position: relative;
+display: none;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 570px;
+margin: 0px 0px 5px 100px;
+//background-color: rgb(255,0,255); /* color Magenta */
+}
+
+#AWPhotoUpload
+{
+position: relative;
+width: 300px;
+//background-color: rgb(202,255,112); /* color DarkOliveGreen1 */
+}
+
+.awInpAddImg
+{
+width: 100px;
+}
+
+#AWWrapSlider
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 565px;
+height: 175px;
+margin: 0px 0px 5px 100px;
+}
+
+#AWSecWrSl
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 100%;
+//height: 158px;
+height: 160px;
+padding: 3px;
+border: 1px solid rgb(207,207,207); /* color gray91 */
+}
+
+#awPrevArrow
+{
+position: absolute;
+z-index: 2;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 32px;
+height: 32px;
+top: 50%;
+left: 0px;
+margin-top: -16px;
+opacity: 0.3;
+cursor: pointer;
+}
+
+#awPrevArrow:hover
+{
+opacity: 1;
+}
+
+#awNextArrow
+{
+position: absolute;
+z-index: 2;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 32px;
+height: 32px;
+top: 50%;
+right: 0px;
+margin-top: -16px;
+opacity: 0.3;
+cursor: pointer;
+}
+
+#awNextArrow:hover
+{
+opacity: 1;
+}
+
+#AWBxSlider
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//background-color: rgb(202,255,112);
+height: 150px;
+}
+
+.awSlideWrap
+{
+position: relative;
+width: 160px;
+height: 150px;
+border: 1px solid rgb(232,232,232); /* color gray91 */
+text-align: center;
+line-height: 145px;
+}
+
+.awSlideWrap:hover
+{
+background-color: rgb(248,248,255);
+border-color: rgb(207,207,207); /* color gray91 */
+}
+
+.awWrSlDelImg
+{
+position: absolute;
+top: 1px;
+right: 1px;
+width: 14px;
+height: 14px;
+z-index: 1;
+background-color: rgb(232,232,232); /* color gray91 */
+border-radius: 2px;
+opacity: 0.5;
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+
+.awWrSlDelImg:hover
+{
+cursor: pointer;
+opacity: 1;
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+.awSlDelImg
+{
+position: absolute;
+top: 2px;
+right: 2px;
+}
+
+.awImgSlide
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+max-width: 158px;
+max-height: 150px;
+border: none;
+vertical-align: middle;
+}
+
+.AWCountImg
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//margin-top: 5px;
+//border: 1px solid red;
+text-align: right;
+font-size: 11px;
+//background-color: rgb(255,0,255);
+color: rgb(112,128,144); /* color SlateGrey */
+}
+
+#AWCategoryDiv
+{
+position: relative;
+//min-height: 70px;
+margin-top: 5px;
+//background-color: rgb(124,252,0); /* color LawnGreen */
+}
+
+#AWCategoryWord
+{
+position: absolute;
+//height: 70px;
+width: 100px;
+//background-color: rgb(255,0,255); /* color Magenta */
+text-align: right;
+font-weight: bold;
+}
+
+#AWCategoryWord2
+{
+margin-right: 5px;
+}
+
+#AWCategoryField
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//background-color: rgb(135,206,250); /* color LightSkyBlue */
+left: 100px;
+margin: 0px;
+resize: none;
+width: 300px;
+//height: 52px;
+
+}
+
+#AWCategoryField select
+{
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 290px;
+font-size: 11px;
+}
+
+#AWSubCategoryDiv
+{
+position: relative;
+//min-height: 70px;
+margin-top: 10px;
+//background-color: rgb(124,252,0); /* color LawnGreen */
+}
+
+#AWSubCategoryWord
+{
+position: absolute;
+//height: 70px;
+width: 100px;
+//background-color: rgb(255,0,255); /* color Magenta */
+text-align: right;
+font-weight: bold;
+}
+
+#AWSubCategoryWord2
+{
+margin-right: 5px;
+}
+
+#AWSubCategoryField
+{
+position: relative;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+//background-color: rgb(135,206,250); /* color LightSkyBlue */
+left: 100px;
+margin: 0px;
+resize: none;
+width: 300px;
+//height: 52px;
+}
+
+#AWSubCategoryField select
+{
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+width: 290px;
+font-size: 11px;
+}
+
+#AWButtonDiv
+{
+position: relative;
+//min-height: 70px;
+margin-top: 10px;
+//background-color: rgb(124,252,0); /* color LawnGreen */
+}
+
+#AWButtonAsk
+{
+position: relative;
+margin-left: 100px;
+width: 80px;
+}
+
+#AWButtonCancel
+{
+position: relative;
+width: 80px;
+}
