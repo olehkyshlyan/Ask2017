@@ -5,21 +5,35 @@ $host = $_SERVER['HTTP_HOST'];
 //print('$host: '.$host.'<br />');
 $currenturl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $_SESSION['currenturl'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$currentRequestURI = $_SERVER['REQUEST_URI'];
+print('$currentRequestURI: '.$currentRequestURI.'<br />');
+$_SESSION['currentRequestURI'] = $currentRequestURI;
+$indexRequestURI = $_SERVER['REQUEST_URI'];
+$_SESSION['indexRequestURI'] = $indexRequestURI;
 //$actpage = basename($currenturl);
 $actpage = 'index.php';
 if($_SERVER['QUERY_STRING'] != ''){ $actpage = 'index.php?'.$_SERVER['QUERY_STRING']; }
-//print('$currenturl: '.$currenturl.'<br />');
+print('$currenturl: '.$currenturl.'<br />');
 //print('SESSION currenturl: '.$_SESSION['currenturl'].'<br />');
 //print('$actpage: '.$actpage.'<br />');
 
-try{ include "db.php"; }
-catch(Exception $e){ $dberr = $e->getMessage()."<br />"; }
+try{
+	include_once "db/db.php";
+}
+catch(Exception $e){
+	$dberr = $e->getMessage()."<br />";
+}
 
-include "categories.php";
-include "subcategories.php";
+include_once "categories.php";
+include_once "subcategories.php";
+include_once "indexpageelements.php";
+use DB as DBNS;
+use Categories as CatNS;
+use Subcategories as SubcatNS;
+use IndexPageElements as IndexPgElNS;
 
 if(isset($_POST['aentbt'])){ include "aauth.php"; }
-if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){
+if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){
 
 if(isset($_POST['logout'])){ include "logout.php"; }
 
@@ -53,29 +67,20 @@ if(isset($_POST['qdelete'])){ include "qdelete.php"; }
 
 }
 
-if(isset($_GET['category'])){
-  $cat = substr((string)$_GET['category'],0,17);
-  $cat = mb_strtolower($cat,'UTF-8');
-  $cat = preg_replace('/[^a-z]/i','',$cat);
-  if(is_string($cat)){
-	if(isset($categories[$cat])){
-	  $category = $cat;
-	}
-  }
-}
-
-if(isset($category)){
+/*
+if($categories->category != NULL){
 if(isset($_GET['subcategory'])){
   $subcat = substr((string)$_GET['subcategory'],0,35);
   $subcat = mb_strtolower($subcat,'UTF-8');
   $subcat = preg_replace('/[^a-z-]/i','',$subcat);
   if(is_string($subcat)){
-  if(isset($subcategories[$category][$subcat])){
+  if(isset(Subcategories\Subcategories::SUBCATEGORIES[$categories->category][$subcat])){
 	$subcategory = $subcat;
   }
   }
 }
 }
+*/
 
 $tenRow = 0;
 $pageNumber = 0;
@@ -109,39 +114,41 @@ $startRow = $pageNumber * $perPage;
 //print('$startRow: '.$startRow.'<br/ >');
 
 $pagelink = '';
-if(isset($db)){
+if(DBNS\Database::$dbHandler != NULL){
 try{
-if(isset($category) && isset($subcategory))
+if($categories->category != NULL && $subcategories->subcategory != NULL)
 {
-$pnrow = $db->query("SELECT id FROM questions WHERE categorylink='$category' and subcategorylink='$subcategory' LIMIT $rowFrom,$rowsLimit;")->fetchAll(PDO::FETCH_NUM);
+$pnrow = DBNS\Database::$dbHandler->query("SELECT id FROM questions WHERE categorylink='".$categories->category."' and subcategorylink='".$subcategories->subcategory."' LIMIT ".$rowFrom.",".$rowsLimit.";")->fetchAll(PDO::FETCH_NUM);
 $rowsNum = count($pnrow);
-$qresult = $db->query("SELECT * FROM questions WHERE categorylink='$category' and subcategorylink='$subcategory' ORDER BY dt Desc LIMIT $startRow,$perPage;");
+$qresult = DBNS\Database::$dbHandler->query("SELECT * FROM questions WHERE categorylink='".$categories->category."' and subcategorylink='".$subcategories->subcategory."' ORDER BY dt Desc LIMIT ".$startRow.",".$perPage.";");
 $qrow = $qresult->fetchAll(PDO::FETCH_ASSOC);
-$pagelink = '?category='.$category.'&subcategory='.$subcategory.'&page=';
+//print('$qrow: '); var_dump($qrow); print('<br />');
+$pagelink = '?category='.$categories->category.'&subcategory='.$subcategories->subcategory.'&page=';
 }
-elseif(isset($category))
+elseif($categories->category != NULL)
 {
-$pnrow = $db->query("SELECT id FROM questions WHERE categorylink='$category' LIMIT $rowFrom,$rowsLimit;")->fetchAll(PDO::FETCH_NUM);
+$pnrow = DBNS\Database::$dbHandler->query("SELECT id FROM questions WHERE categorylink='".$categories->category."' LIMIT ".$rowFrom.",".$rowsLimit.";")->fetchAll(PDO::FETCH_NUM);
 $rowsNum = count($pnrow);
-$qresult = $db->query("SELECT * FROM questions WHERE categorylink='$category' ORDER BY dt Desc LIMIT $startRow,$perPage;");
+$qresult = DBNS\Database::$dbHandler->query("SELECT * FROM questions WHERE categorylink='".$categories->category."' ORDER BY dt Desc LIMIT ".$startRow.",".$perPage.";");
 $qrow = $qresult->fetchAll(PDO::FETCH_ASSOC);
-$pagelink = '?category='.$category.'&page=';
+//print('$qrow: '); var_dump($qrow); print('<br />');
+$pagelink = '?category='.$categories->category.'&page=';
 }
 else
 {
-$pnrow = $db->query("SELECT id FROM questions LIMIT $rowFrom,$rowsLimit;")->fetchAll(PDO::FETCH_NUM);
+$pnrow = DBNS\Database::$dbHandler->query("SELECT id FROM questions LIMIT ".$rowFrom.",".$rowsLimit.";")->fetchAll(PDO::FETCH_NUM);
 $rowsNum = count($pnrow);
 //print('$rowsNum: '.$rowsNum.'<br />');
-$qresult = $db->query("SELECT * FROM questions ORDER BY dt Desc LIMIT $startRow,$perPage;");
+$qresult = DBNS\Database::$dbHandler->query("SELECT * FROM questions ORDER BY dt Desc LIMIT ".$startRow.",".$perPage.";");
 //print('$qresult: '); var_dump($qresult); print('<br />');
 $qrow = $qresult->fetchAll(PDO::FETCH_ASSOC);
 //print('$qrow: '); var_dump($qrow); print('<br />');
 $pagelink = '?page=';
 }
 
-if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){
+if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){
   $iuid = $_SESSION['uid'];
-  $ulrec = $db->query("SELECT lrec FROM users WHERE uid='$iuid';")->fetchAll(PDO::FETCH_ASSOC);
+  $ulrec = DBNS\Database::$dbHandler->query("SELECT lrec FROM users WHERE uid='$iuid';")->fetchAll(PDO::FETCH_ASSOC);
 }
 
 }
@@ -179,7 +186,7 @@ else{
 // если на странице 'index.php' остаётся один вопрос,
 // то в случае его удаления пользователя перенаправляет на страницу с номером меньшим на единицу
 if(isset($_SESSION['delq']) && $_SESSION['delq'] == true){
-if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){
+if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){
   if(isset($pgn) && $pgn != 1){
 	if(isset($qrow) && count($qrow) == 0){
 	  $pred = $pgn - 1;
@@ -197,23 +204,8 @@ $nextten = $tenRow+11;
 $prevten = $tenRow-9;
 //print('$prevten: '.$prevten.'<br/ >');
 
-// функция заполнения выпадающего diva категориями
-function fillInCategories(){
-  global $categories;
-  foreach($categories as $k=>$v)
-  { print('<span class="categories"><a href="index.php?category='.$k.'" class="categorieslink">'.$v.'</a></span>'); }
-}
-
-// функция заполнения diva субкатегориями после выбора категории
-function fillInSubcategories(){
-  global $category; global $subcategories;
-  if(isset($category) && $category != 'other')
-  foreach($subcategories[$category] as $k=>$v)
-  { print('<span class="subcategories"><a href="index.php?category='.$category.'&subcategory='.$k.'" class="categorieslink">'.$v.'</a></span>'); }
-}
-
-//$_SESSION['euser'] = true; $_SESSION['uid'] = 194290693; $_SESSION['fname'] = 'Олег'; $_SESSION['lname'] = 'Шевченко'; $_SESSION['utype'] = 'vk'; $_SESSION['uphoto'] = 'uimages/vk50.jpg';
-//$_SESSION['euser'] = true; $_SESSION['uid'] = 222; $_SESSION['fname'] = 'Admin'; $_SESSION['lname'] = 'AdminLN'; $_SESSION['utype'] = 'admin'; $_SESSION['uphoto'] = 'uimages/admin.jpg';
+//$_SESSION['authuser'] = true; $_SESSION['uid'] = 194290693; $_SESSION['fname'] = 'Олег'; $_SESSION['lname'] = 'Шевченко'; $_SESSION['utype'] = 'vk'; $_SESSION['uphoto'] = 'uimages/vk50.jpg';
+//$_SESSION['authuser'] = true; $_SESSION['uid'] = 222; $_SESSION['fname'] = 'Admin'; $_SESSION['lname'] = 'AdminLN'; $_SESSION['utype'] = 'admin'; $_SESSION['uphoto'] = 'uimages/admin.jpg';
 
 //print('SESSION: '); print_r($_SESSION); print('<br />');
 
@@ -237,15 +229,15 @@ function fillInSubcategories(){
     
   </style>
   
-  <script type='text/javascript' src='js/jquery.1.8.3.js'></script>
-  <script type='text/javascript' src='js/jquery-ui.js'></script>
+  <script type='text/javascript' src='js/jquery.3.4.1.js'></script>
+  <script type='text/javascript' src='js/jquery-ui.1.12.1.js'></script>
   <script type='text/javascript' src='js/jquery.bxslider.min.js'></script>
   <script type='text/javascript' src='js/slimscroll.js'></script>
   <script type='text/javascript' src='js/functions.js'></script>
-  <? if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){ ?>
-  <script type='text/javascript' src='js/euser.js'></script>
+  <? if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){ ?>
+  <script type='text/javascript' src='js/authuser.js'></script>
   <? if(isset($_SESSION['utype']) && $_SESSION['utype'] == 'admin'){ ?>
-  <script type='text/javascript' src='js/admin.js'></script>
+  <script type='text/javascript' src='admin/js/adminindexpage.js'></script>
   <? }} ?>
   
   <script>
@@ -262,7 +254,7 @@ function fillInSubcategories(){
 <div id="mcont">
   
   <div id="mainTopPanel">
-	<? if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){ ?>
+	<? if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){ ?>
 	<? if(isset($_SESSION['utype'])){ ?>
 	<a id="mypagemtp" href="uq.php?uid=<? print($_SESSION['uid']); ?>">My page</a><span id="spmypage"></span>
 	<? if($_SESSION['utype'] != 'admin'){ ?>
@@ -274,7 +266,7 @@ function fillInSubcategories(){
 	  <input id="MTPLogoutBt" name="logout" type="submit" value="Log Out" />
 	</form>
 	<? }else{ ?>
-  <a id="MTPLoginBt" href="auth.php">Log In</a>
+  <a id="MTPLoginBt" href="auth/auth.php">Log In</a>
   <? } ?>
   </div>
   
@@ -303,7 +295,7 @@ function fillInSubcategories(){
   </div>
   <? unset($_SESSION['aqerr']); } ?>
   
-  <? if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){ if(isset($_SESSION['blocked']) && $_SESSION['blocked'] == 'no'){ include "askwindow.php"; }} ?>
+  <? if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){ if(isset($_SESSION['blocked']) && $_SESSION['blocked'] == 'no'){ include "askwindow.php"; }} ?>
   
   <div id="leftBlock">
     <div id="LBAdv1"></div>
@@ -311,39 +303,28 @@ function fillInSubcategories(){
     <div id="LBAdv3"></div>
   </div>
   
-  <div id="mbmainbts">
-    <div id="categoriesWord" onmouseout="hideCategories(this,event);"><span id="categoriesWordSpan" onclick="showCategories();">Categories</span></div>
-    <div id="MBAskWord"><span <? if(isset($_SESSION['euser'])){ if(isset($_SESSION['blocked']) && $_SESSION['blocked'] == 'no'){ ?>onclick="qwopen();"<? }} else { ?>onclick="askaq('aaqmsg');"<? } ?>>Ask a question !</span></div>
-  </div>
+	<? if(IndexPgElNS\MainButtons::$openingTag != NULL){ print(IndexPgElNS\MainButtons::$openingTag); } ?>
+		<? if(IndexPgElNS\MainButtons::$categoriesButton != NULL){ print(IndexPgElNS\MainButtons::$categoriesButton); } ?>
+    <? if(IndexPgElNS\MainButtons::$askAQuestionButton != NULL){ print(IndexPgElNS\MainButtons::$askAQuestionButton); } ?>
+	<? if(IndexPgElNS\MainButtons::$closingTag != NULL){ print(IndexPgElNS\MainButtons::$closingTag); } ?>
   
-  <div id="categwrap">
-    <div id="categories" onmouseout="hideCategories(this,event);"><? fillInCategories(); ?></div>
-  </div>
+	<? if($categories->topSectionCategories != NULL){ print($categories->topSectionCategories); } ?>
   
-  <? if(!isset($_SESSION['euser'])){ ?><div id="aaqmsg"></div><? } ?>
+  <? if(!isset($_SESSION['authuser'])){ ?><div id="aaqmsg"></div><? } ?>
+	
+	<? if(IndexPgElNS\IndexPageRoute::$route != NULL){ print(IndexPgElNS\IndexPageRoute::$route); } ?>
   
-  <div id="MBCatHistory">
-  <a href="index.php" id="MBAllCat" class="MBCatElem">Main page</a>
-	<? if(isset($category)){ if($category == 'other'){ ?>
-	<span>> </span><span><? print($categories[$category]); ?></span>
-	<? }else{ ?>
-	<span>> </span><a href="index.php?category=<? print($category); ?>" class="MBCatElem"><? print($categories[$category]); ?></a>
-	<? }} ?>
-	<? if(isset($subcategory)){ ?>
-	<span>> </span><span><? print($subcategories[$category][$subcategory]); ?></span>
-	<? } ?>
-  </div>
+	<? if($subcategories->subcategoriesSection != NULL){ print($subcategories->subcategoriesSection); } ?>
   
-  <div id="MBSubcategories"><? if(isset($category)){ fillInSubcategories(); } ?></div>
-  
-  <div id="middleBlock">
+	<? if(IndexPgElNS\MiddleBlock::$openingTag != NULL){ print(IndexPgElNS\MiddleBlock::$openingTag); } ?>
 	
 	<? if(isset($qrow) && $qrow != false){ foreach($qrow as $row){ ?>
-	<div class="MBQuestionBlock">
+	<div id="<? print($row['id']); ?>" class="MBQuestionBlock">
 	  
+		<div id="<? print($row['uid']); ?>" class="questionUserID"></div>
 	  <div id="qmsg<? print($row['id']); ?>" class="msg"></div>
 	  
-	  <? if(isset($_SESSION['euser'])&& $_SESSION['euser'] == true){ ?>
+	  <? if(isset($_SESSION['authuser'])&& $_SESSION['authuser'] == true){ ?>
 	  <? if(isset($_SESSION['utype']) && $_SESSION['utype'] == 'admin'){ ?>
 	  <div id="delmsg<? print($row['id']); ?>" class="qdel">
     <form method="post" action="<? print($actpage); ?>">
@@ -356,8 +337,9 @@ function fillInSubcategories(){
 	  
 	  <div id="bu<? print($row['id']); ?>" class="qbu">
     <div class="txtqbu">Block this user ?</div>
-		<div class="yqbu" onclick="blockuser('bu<? print($row['id']); ?>','qmsg<? print($row['id']); ?>','<? print($row['uid']); ?>');">Yes</div>
-		<div class="nqbu" onclick="cbuform('bu<? print($row['id']); ?>');">No</div>
+		<!-- <div class="yqbu" onclick="blockuser('bu<? //print($row['id']); ?>','qmsg<? //print($row['id']); ?>','<? //print($row['uid']); ?>');">Yes</div> -->
+		<div class="confirmButtonBlockUserForm">Yes</div>
+		<div class="cancelButtonBlockUserForm">No</div>
 	  </div>
 	  <? }else{ ?>
 	  <div id="qc<? print($row['id']); ?>" class="qc">
@@ -383,9 +365,9 @@ function fillInSubcategories(){
     <span id="MBQDDate" class="QDItems"><? print($row['dt']); ?></span>
     <span id="MBQDVotesNumber" class="QDItems">Answers: <? print($row['answers']); ?></span>
 		<span class="MBRightSideIcons">
-		  <? if(isset($_SESSION['euser'])&& $_SESSION['euser'] == true){ ?>
+		  <? if(isset($_SESSION['authuser'])&& $_SESSION['authuser'] == true){ ?>
 		  <? if(isset($_SESSION['utype']) && $_SESSION['utype'] == 'admin'){ ?>
-		  <img class="RSIcons" title="Block user" src="icons/block.png" onclick="obuform('bu<? print($row['id']); ?>');" />
+		  <img class="iconBlockUser" title="Block user" src="icons/block.png" />
 		  <img class="RSIcons" title="Delete" src="icons/delete.png" onclick="odelform('delmsg<? print($row['id']); ?>');" />
 		  <? }else{ ?>
 		  <img class="RSIcons" title="Complain" src="icons/flag.png" onclick="oqcform('qc<? print($row['id']); ?>');" />
@@ -413,11 +395,9 @@ function fillInSubcategories(){
 	</div>
 	<? } ?>
 	
-  </div>
+	<? if(IndexPgElNS\MiddleBlock::$closingTag != NULL){ print(IndexPgElNS\MiddleBlock::$closingTag); } ?>
   
-  <div id="ftcategories">
-  <? foreach($categories as $k=>$v){ print('<span class="ftcategories"><a href="index.php?category='.$k.'" class="ftcatlink">'.$v.'</a></span>'); } ?>
-  </div>
+	<? if($categories->footerSectionCategories != NULL){ print($categories->footerSectionCategories); } ?>
   
   <div class="footerClLine">
     <div id="sitename">Questions and answers</div>
