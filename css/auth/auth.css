@@ -168,14 +168,14 @@ cursor: pointer;
 cursor: hand;
 }
 
-#sepline2
+.separatingLine
 {
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-margin: 15px 15px 0px 15px;
-border-top: 1px solid rgb(153,165,171);
+	position: relative;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 15px 15px 0px 15px;
+	border-top: 1px solid rgb(153,165,171);
 }
 
 #returnLinksSection
@@ -222,17 +222,7 @@ text-align: right;
 text-decoration: none;
 }
 
-#sepline3
-{
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-margin: 15px 15px 0px 15px;
-border-top: 1px solid rgb(153,165,171);
-}
-
-#wforgpsw
+#passwordRecovery
 {
 position: relative;
 box-sizing: border-box;
@@ -241,23 +231,13 @@ box-sizing: border-box;
 margin: 15px 15px 0px 15px;
 }
 
-#forgpsw
+#pswRecLink
 {
 font-size: 14px;
 text-decoration: none;
 }
 
-#sepline4
-{
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-margin: 15px 15px 0px 15px;
-border-top: 1px solid rgb(153,165,171);
-}
-
-#wcreateacc
+#createAccount
 {
 position: relative;
 box-sizing: border-box;
@@ -268,7 +248,7 @@ margin: 20px 15px 20px 15px;
 //background-color: rgb(202,255,112); /* color DarkOliveGreen1 */
 }
 
-#btcracc
+#crAccLink
 {
 position: relative;
 display: block;
