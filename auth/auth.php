@@ -4,14 +4,24 @@ $host = $_SERVER['HTTP_HOST'];
 $currenturl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 class Authorization{
+	public $separatingLine = NULL;
 	public $indexRequestURI = NULL;
 	public $previousPageURI = NULL;
 	public $returnLinksSection = NULL;
+	public $passwordRecoverySection = NULL;
+	public $newAccountSection = NULL;
 	
 	function __construct(){
+		$this->createSeparatingLine();
 		$this->setIndexRequestURI();
 		$this->setPreviousPageURI();
 		$this->createReturnLinksSection();
+		$this->createPasswordRecoverySection();
+		$this->createNewAccountSection();
+	}
+	
+	private function createSeparatingLine(){
+		$this->separatingLine = '<div class="separatingLine"></div>';
 	}
 	
 	private function setIndexRequestURI(){
@@ -33,6 +43,20 @@ class Authorization{
 		$rls .= '</div>';
 		$this->returnLinksSection = $rls;
 	}
+	
+	private function createPasswordRecoverySection(){
+		$pswRecSec = '<div id="passwordRecovery">';
+		$pswRecSec .= '<a id="pswRecLink" href="forgotpsw.php">Forgot your password ?</a>';
+		$pswRecSec .= '</div>';
+		$this->passwordRecoverySection = $pswRecSec;
+	}
+	
+	private function createNewAccountSection(){
+		$newAccount = '<div id="createAccount">';
+		$newAccount .= '<a id="crAccLink" href="register.php">Create account</a>';
+		$newAccount .= '</div>';
+		$this->newAccountSection = $newAccount;
+	}
 }
 
 $authorization = new Authorization();
@@ -45,7 +69,7 @@ catch(Exception $e){
 }
 
 if(isset($_POST['btlogin'])){
-  include_once "doauth.php";
+  include_once "authProcess.php";
 }
 
 //print('SESSION: '); print_r($_SESSION); print('<br />');
@@ -89,12 +113,12 @@ if(isset($_POST['btlogin'])){
 	<div id="wpsw"><input id="psw" name="psw" type="password" maxlength="20" placeholder="Password" onfocus="authfchc(this,'b');" onblur="authfchc(this,'g');" /></div>
 	<div id="wbtlogin"><input id="btlogin" name="btlogin" type="submit" value="Log in" /></div>
   </form>
-	<div id="sepline2"></div>
+	<? print($authorization->separatingLine); ?>
 	<? print($authorization->returnLinksSection); ?>
-	<div id="sepline3"></div>
-	<div id="wforgpsw"><a id="forgpsw" href="forgotpsw.php">Forgot your password ?</a></div>
-	<div id="sepline4"></div>
-	<div id="wcreateacc"><a id="btcracc" href="register.php">Create account</a></div>
+	<? print($authorization->separatingLine); ?>
+	<? print($authorization->passwordRecoverySection); ?>
+	<? print($authorization->separatingLine); ?>
+	<? print($authorization->newAccountSection); ?>
 </div>
 
 </body>
