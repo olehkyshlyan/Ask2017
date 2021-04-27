@@ -4,17 +4,25 @@ session_start();
 $host = $_SERVER['HTTP_HOST'];
 $currenturl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $_SESSION['currenturl'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$currentRequestURI = $_SERVER['REQUEST_URI'];
+//print('$currentRequestURI: '.$currentRequestURI.'<br />');
+$_SESSION['currentRequestURI'] = $currentRequestURI;
 //print('$currenturl: '.$currenturl.'<br />');
 //print('SESSION currenturl: '.$_SESSION['currenturl'].'<br />');
 //$actpage = basename($currenturl);
 //$actpage = basename($currenturl);
 //print('$actpage: '.$actpage.'<br />');
 
-try{ include "db.php"; }
-catch(Exception $e){ $dberr = $e->getMessage()."<br />"; }
+try{
+	include_once "db/db.php";
+}
+catch(Exception $e){
+	$dberr = $e->getMessage()."<br />";
+}
 
 include "categories.php";
 include "subcategories.php";
+use DB as DBNS;
 
 if(isset($_POST['aentbt'])){ include "aauth.php"; }
 
@@ -80,7 +88,7 @@ if(isset($_GET['q'])){
 if($digitid == true){
 try{
 // выборка вопроса
-$qresult = $db->query("SELECT * FROM questions WHERE id='".$qid."';");
+$qresult = DBNS\Database::$dbHandler->query("SELECT * FROM questions WHERE id='".$qid."';");
 //print('$qresult: '); var_dump($qresult); print('<br />');
 $qrow = $qresult->fetch(PDO::FETCH_ASSOC);
 //print('$qrow: '); var_dump($qrow); print('<br />');
@@ -92,7 +100,7 @@ if($qrow != false){
   $perpage = 10;
   $limit = $perpage + 1;
   $mopp = $perpage - 1;
-  $aresult = $db->query("SELECT * FROM answers WHERE qid='$qid' ORDER BY dt Desc LIMIT $limit;");
+  $aresult = DBNS\Database::$dbHandler->query("SELECT * FROM answers WHERE qid='$qid' ORDER BY dt Desc LIMIT $limit;");
   //print('$aresult: '); var_dump($aresult); print('<br />');
   $arow = $aresult->fetchAll(PDO::FETCH_ASSOC);
   //print('$arow: '); var_dump($arow); print('<br />');
@@ -105,7 +113,7 @@ if($qrow != false){
   }
   if(isset($_SESSION['euser']) && $_SESSION['euser'] == true){
     $auid = $_SESSION['uid'];
-    $ulrec = $db->query("SELECT lrec FROM users WHERE uid='$auid';")->fetchAll(PDO::FETCH_ASSOC);
+    $ulrec = DBNS\Database::$dbHandler->query("SELECT lrec FROM users WHERE uid='$auid';")->fetchAll(PDO::FETCH_ASSOC);
   }
 }
 }
@@ -199,7 +207,7 @@ function fillInCategories(){
 	  <input id="MTPLogoutBt" name="logout" type="submit" value="Log Out" />
 	</form>
 	<? }else{ ?>
-  <a id="MTPLoginBt" href="auth.php">Log In</a>
+  <a id="MTPLoginBt" href="auth/auth.php">Log In</a>
   <? } ?>
   </div>
   
