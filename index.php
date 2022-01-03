@@ -399,9 +399,7 @@ $prevten = $tenRow-9;
   
 	<? if(CatNS\Categories::$footerSectionCategories != NULL){ print(CatNS\Categories::$footerSectionCategories); } ?>
   
-  <div id="footer">
-    <div id="footerSiteName">Questions and answers</div>
-  </div>
+	<? if(IndexPgElNS\Footer::$footer != NULL){ print(IndexPgElNS\Footer::$footer); } ?>
 
 </div>
 </div>
