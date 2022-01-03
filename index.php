@@ -6,14 +6,14 @@ $host = $_SERVER['HTTP_HOST'];
 $currenturl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $_SESSION['currenturl'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $currentRequestURI = $_SERVER['REQUEST_URI'];
-print('$currentRequestURI: '.$currentRequestURI.'<br />');
+//print('$currentRequestURI: '.$currentRequestURI.'<br />');
 $_SESSION['currentRequestURI'] = $currentRequestURI;
 $indexRequestURI = $_SERVER['REQUEST_URI'];
 $_SESSION['indexRequestURI'] = $indexRequestURI;
 //$actpage = basename($currenturl);
 $actpage = 'index.php';
 if($_SERVER['QUERY_STRING'] != ''){ $actpage = 'index.php?'.$_SERVER['QUERY_STRING']; }
-print('$currenturl: '.$currenturl.'<br />');
+//print('$currenturl: '.$currenturl.'<br />');
 //print('SESSION currenturl: '.$_SESSION['currenturl'].'<br />');
 //print('$actpage: '.$actpage.'<br />');
 
@@ -399,8 +399,8 @@ $prevten = $tenRow-9;
   
 	<? if(CatNS\Categories::$footerSectionCategories != NULL){ print(CatNS\Categories::$footerSectionCategories); } ?>
   
-  <div class="footerClLine">
-    <div id="sitename">Questions and answers</div>
+  <div id="footer">
+    <div id="footerSiteName">Questions and answers</div>
   </div>
 
 </div>
