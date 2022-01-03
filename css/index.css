@@ -282,7 +282,7 @@ height: 600px;
 background-color: rgb(253,245,230); /* color OldLace */
 }
 
-#mbmainbts
+#mainButtons
 {
 position: relative;
 box-sizing: border-box;
@@ -293,7 +293,7 @@ margin-left: 350px;
 //background-color: rgb(202,255,112);
 }
 
-#categoriesWord
+#wrCategoriesButton
 {
 position: relative;
 box-sizing: border-box;
@@ -311,18 +311,18 @@ padding-top: 4px;
 padding-bottom: 4px;
 }
 
-#categoriesWordSpan
+#categoriesButton
 {
 cursor: pointer;
 cursor: hand;
 }
 
-#categoriesWordSpan:hover
+#categoriesButton:hover
 {
 color: rgb(139,0,0);
 }
 
-#MBAskWord
+#wrMBAskWord
 {
 position: relative;
 box-sizing: border-box;
@@ -339,18 +339,18 @@ padding-bottom: 4px;
 margin-left: 325px;
 }
 
-#MBAskWord span
+#wrMBAskWord span
 {
 cursor: pointer;
 cursor: hand;
 }
 
-#MBAskWord span:hover
+#wrMBAskWord span:hover
 {
 color: rgb(139,0,0);
 }
 
-#categwrap
+#wrCategories
 {
 position: relative;
 width: 640px;
@@ -414,7 +414,7 @@ cursor: pointer;
 cursor: hand;
 }
 
-#aaqmsg
+#msgAskAQuestion
 {
 position: relative;
 display: none;
@@ -427,7 +427,7 @@ color: rgb(139,0,0);
 background-color: rgb(255,127,255);
 }
 
-#MBCatHistory
+#MBPageRoute
 {
 position: relative;
 width: 640px;
@@ -436,12 +436,12 @@ margin-bottom: 5px;
 //background-color: rgb(124,252,0); /* color LawnGreen */
 }
 
-.MBCatElem
+.MBPageRouteElement
 {
 text-decoration: none;
 }
 
-.MBCatElem:hover
+.MBPageRouteElement:hover
 {
 font-weight: bold;
 text-decoration: underline;
@@ -528,6 +528,11 @@ border-radius: 5px;
 background-color: rgb(245,245,245); /* color WhiteSmoke */
 }
 
+.questionUserID
+{
+display: none;
+}
+
 .msg
 {
 position: relative;
@@ -539,6 +544,34 @@ padding-bottom: 4px;
 margin-bottom: 5px;
 font-weight: bold;
 color: rgb(139,0,0);
+}
+
+.msgBlock
+{
+position: relative;
+display: none;
+text-align: center;
+padding-top: 4px;
+padding-bottom: 4px;
+margin-bottom: 5px;
+font-weight: bold;
+color: rgb(139,0,0);
+background-color: rgb(233,233,246);
+}
+
+.msgBlock p
+{
+padding-top: 0px;
+padding-bottom: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+.msgBlock img
+{
+position: absolute;
+top: 3px;
+right: 3px;
 }
 
 .qdel
@@ -633,7 +666,7 @@ padding-top: 2px;
 //background-color: rgb(124,252,0); /* color LawnGreen */
 }
 
-.yqbu
+.confirmButtonBlockUserForm
 {
 position: absolute;
 box-sizing: border-box;
@@ -653,7 +686,7 @@ border-radius: 2px;
 cursor: pointer;
 }
 
-.nqbu
+.cancelButtonBlockUserForm
 {
 position: absolute;
 box-sizing: border-box;
@@ -809,6 +842,19 @@ text-align: right;
 margin-right: 5px;
 }
 
+.iconBlockUser
+{
+margin-left: 3px;
+cursor: pointer;
+cursor: hand;
+opacity: 0.5;
+}
+
+.iconBlockUser:hover
+{
+opacity: 1;
+}
+
 .RSIcons
 {
 margin-left: 3px;
@@ -909,7 +955,7 @@ background-color: rgb(232,232,232); /* color gray91 */
 //background-color: rgb(255,238,178); /* color Cornsilk | Saturation 30%  */
 }
 
-#ftcategories
+#footerSectionCategories
 {
 position: relative;
 box-sizing: border-box;
@@ -920,7 +966,7 @@ clear: both;
 margin-bottom: 10px;
 }
 
-.ftcategories
+.footerSectionCategories
 {
 display: inline-block;
 box-sizing: border-box;
@@ -933,17 +979,17 @@ padding: 2px 0px 1px 4px;
 margin: 0px 2px 2px 0px;
 }
 
-.ftcategories:hover
+.footerSectionCategories:hover
 {
 background-color: rgb(255,227,127); /* color Cornsilk | Saturation 40%  */
 }
 
-.ftcatlink
+.ftSecCatLink
 {
 text-decoration: none;
 }
 
-.ftcatlink:hover
+.ftSecCatLink:hover
 {
 text-decoration: underline;
 font-weight: bold;
@@ -951,7 +997,7 @@ cursor: pointer;
 cursor: hand;
 }
 
-.footerClLine
+#footer
 {
 position: relative;
 box-sizing: border-box;
@@ -965,7 +1011,7 @@ clear: both;
 padding: 1px 3px 1px 3px;
 }
 
-#sitename
+#footerSiteName
 {
 margin-left: 5px;
 margin-top: 3px;
