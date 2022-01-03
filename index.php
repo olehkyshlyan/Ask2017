@@ -24,9 +24,9 @@ catch(Exception $e){
 	$dberr = $e->getMessage()."<br />";
 }
 
-include_once "categories.php";
-include_once "subcategories.php";
-include_once "indexpageelements.php";
+include_once "categories/categories.php";
+include_once "subcategories/subcategories.php";
+include_once "indexpage/indexpageelements.php";
 use DB as DBNS;
 use Categories as CatNS;
 use Subcategories as SubcatNS;
@@ -303,20 +303,20 @@ $prevten = $tenRow-9;
     <div id="LBAdv3"></div>
   </div>
   
-	<? if(IndexPgElNS\MainButtons::$openingTag != NULL){ print(IndexPgElNS\MainButtons::$openingTag); } ?>
+	<? if(IndexPgElNS\MainButtons::$openTag != NULL){ print(IndexPgElNS\MainButtons::$openTag); } ?>
 		<? if(IndexPgElNS\MainButtons::$categoriesButton != NULL){ print(IndexPgElNS\MainButtons::$categoriesButton); } ?>
     <? if(IndexPgElNS\MainButtons::$askAQuestionButton != NULL){ print(IndexPgElNS\MainButtons::$askAQuestionButton); } ?>
-	<? if(IndexPgElNS\MainButtons::$closingTag != NULL){ print(IndexPgElNS\MainButtons::$closingTag); } ?>
+	<? if(IndexPgElNS\MainButtons::$closeTag != NULL){ print(IndexPgElNS\MainButtons::$closeTag); } ?>
   
-	<? if($categories->topSectionCategories != NULL){ print($categories->topSectionCategories); } ?>
+	<? if(CatNS\Categories::$topSectionCategories != NULL){ print(CatNS\Categories::$topSectionCategories); } ?>
   
   <? if(!isset($_SESSION['authuser'])){ ?><div id="aaqmsg"></div><? } ?>
 	
 	<? if(IndexPgElNS\IndexPageRoute::$route != NULL){ print(IndexPgElNS\IndexPageRoute::$route); } ?>
   
-	<? if($subcategories->subcategoriesSection != NULL){ print($subcategories->subcategoriesSection); } ?>
+	<? if(SubcatNS\Subcategories::$subcategoriesSection != NULL){ print(SubcatNS\Subcategories::$subcategoriesSection); } ?>
   
-	<? if(IndexPgElNS\MiddleBlock::$openingTag != NULL){ print(IndexPgElNS\MiddleBlock::$openingTag); } ?>
+	<? if(IndexPgElNS\MiddleBlock::$openTag != NULL){ print(IndexPgElNS\MiddleBlock::$openTag); } ?>
 	
 	<? if(isset($qrow) && $qrow != false){ foreach($qrow as $row){ ?>
 	<div id="<? print($row['id']); ?>" class="MBQuestionBlock">
@@ -395,9 +395,9 @@ $prevten = $tenRow-9;
 	</div>
 	<? } ?>
 	
-	<? if(IndexPgElNS\MiddleBlock::$closingTag != NULL){ print(IndexPgElNS\MiddleBlock::$closingTag); } ?>
+	<? if(IndexPgElNS\MiddleBlock::$closeTag != NULL){ print(IndexPgElNS\MiddleBlock::$closeTag); } ?>
   
-	<? if($categories->footerSectionCategories != NULL){ print($categories->footerSectionCategories); } ?>
+	<? if(CatNS\Categories::$footerSectionCategories != NULL){ print(CatNS\Categories::$footerSectionCategories); } ?>
   
   <div class="footerClLine">
     <div id="sitename">Questions and answers</div>
