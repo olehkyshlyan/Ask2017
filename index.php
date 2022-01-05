@@ -27,10 +27,12 @@ catch(Exception $e){
 include_once "categories/categories.php";
 include_once "subcategories/subcategories.php";
 include_once "indexpage/indexpageelements.php";
+include_once "leftblock/leftblock.php";
 use DB as DBNS;
 use Categories as CatNS;
 use Subcategories as SubcatNS;
 use IndexPageElements as IndexPgElNS;
+use LeftBlock as LB;
 
 if(isset($_POST['aentbt'])){ include "aauth.php"; }
 if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){
@@ -66,21 +68,6 @@ if(isset($_POST['qdelete'])){ include "qdelete.php"; }
 }
 
 }
-
-/*
-if($categories->category != NULL){
-if(isset($_GET['subcategory'])){
-  $subcat = substr((string)$_GET['subcategory'],0,35);
-  $subcat = mb_strtolower($subcat,'UTF-8');
-  $subcat = preg_replace('/[^a-z-]/i','',$subcat);
-  if(is_string($subcat)){
-  if(isset(Subcategories\Subcategories::SUBCATEGORIES[$categories->category][$subcat])){
-	$subcategory = $subcat;
-  }
-  }
-}
-}
-*/
 
 $tenRow = 0;
 $pageNumber = 0;
@@ -225,6 +212,7 @@ $prevten = $tenRow-9;
   
   <link rel="stylesheet" type="text/css" href="css/askwindow.css" />
   <link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/leftblock/leftblock.css" />
   <style type="text/css">
     
   </style>
@@ -297,11 +285,7 @@ $prevten = $tenRow-9;
   
   <? if(isset($_SESSION['authuser']) && $_SESSION['authuser'] == true){ if(isset($_SESSION['blocked']) && $_SESSION['blocked'] == 'no'){ include "askwindow.php"; }} ?>
   
-  <div id="leftBlock">
-    <div id="LBAdv1"></div>
-    <div id="LBAdv2"></div>
-    <div id="LBAdv3"></div>
-  </div>
+	<? if(LB\LeftAdvBlock::$advBlock != NULL){ print(LB\LeftAdvBlock::$advBlock); } ?>
   
 	<? if(IndexPgElNS\MainButtons::$openTag != NULL){ print(IndexPgElNS\MainButtons::$openTag); } ?>
 		<? if(IndexPgElNS\MainButtons::$categoriesButton != NULL){ print(IndexPgElNS\MainButtons::$categoriesButton); } ?>
