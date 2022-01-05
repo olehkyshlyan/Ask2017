@@ -233,55 +233,6 @@ cursor: pointer;
 cursor: hand;
 }
 
-#leftBlock
-{
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-float: left;
-width: 330px;
-min-height: 600px;
-background-color: rgb(250,235,215); /* color AntiqueWhite */
-margin-left: 10px;
-margin-bottom: 10px;
-}
-
-#LBAdv1
-{
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-width: 330px;
-height: 600px;
-margin-bottom: 10px;
-background-color: rgb(253,245,230); /* color OldLace */
-}
-
-#LBAdv2
-{
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-width: 330px;
-height: 600px;
-margin-bottom: 10px;
-background-color: rgb(253,245,230); /* color OldLace */
-}
-
-#LBAdv3
-{
-position: relative;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
-width: 330px;
-height: 600px;
-background-color: rgb(253,245,230); /* color OldLace */
-}
-
 #mainButtons
 {
 position: relative;
